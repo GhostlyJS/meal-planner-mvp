@@ -42,7 +42,7 @@ const generateShoppingList = async (recipes) => {
   try {
     // Appel à l'API d'OpenAI
     const response = await openai.chat.completions.create({
-      model: "gpt-4", // ou un autre modèle disponible
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",

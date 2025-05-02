@@ -18,7 +18,6 @@ const shoppingItemSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['fruits', 'vegetables', 'dairy', 'meat', 'seafood', 'bakery', 'pantry', 'freezer', 'spices', 'other'],
     default: 'other'
   },
   checked: {
