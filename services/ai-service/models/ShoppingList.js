@@ -18,7 +18,25 @@ const shoppingItemSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    default: 'other'
+    enum: [
+      "Fruits",
+      "Légumes",
+      "Viandes",
+      "Poissons et fruits de mer",
+      "Produits laitiers",
+      "Céréales et féculents",
+      "Légumineuses",
+      "Noix et graines",
+      "Huiles et matières grasses",
+      "Épices et herbes",
+      "Sucres et édulcorants",
+      "Boissons",
+      "Produits transformés",
+      "Snacks et confiseries",
+      "Produits de boulangerie",
+      "Autres"
+    ],
+    default: "Autres"
   },
   checked: {
     type: Boolean,

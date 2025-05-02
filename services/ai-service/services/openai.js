@@ -48,7 +48,24 @@ const generateShoppingList = async (recipes) => {
           role: "system",
           content: `Tu es un assistant culinaire chargé de générer des listes de courses optimisées. Tu dois:
           1. Combiner les ingrédients similaires et ajuster les quantités
-          2. Organiser les ingrédients par catégorie (fruits, légumes, produits laitiers, viande, épicerie, etc.)
+          2. Organiser les ingrédients par catégorie [
+            "Fruits",
+            "Légumes",
+            "Viandes",
+            "Poissons et fruits de mer",
+            "Produits laitiers",
+            "Céréales et féculents",
+            "Légumineuses",
+            "Noix et graines",
+            "Huiles et matières grasses",
+            "Épices et herbes",
+            "Sucres et édulcorants",
+            "Boissons",
+            "Produits transformés",
+            "Snacks et confiseries",
+            "Produits de boulangerie",
+            "Autres"
+          ]
           3. Retourner la liste au format JSON avec la structure suivante:
           {
             "items": [

@@ -12,6 +12,25 @@ const ShoppingListDetail = () => {
   const [loading, setLoading] = useState(true);
   const [deleteModal, setDeleteModal] = useState(false);
 
+  // Définition des nouvelles catégories
+  const categoriesAliments = [
+    "Fruits",
+    "Légumes",
+    "Viandes",
+    "Poissons et fruits de mer",
+    "Produits laitiers",
+    "Céréales et féculents",
+    "Légumineuses",
+    "Noix et graines",
+    "Huiles et matières grasses",
+    "Épices et herbes",
+    "Sucres et édulcorants",
+    "Boissons",
+    "Produits transformés",
+    "Snacks et confiseries",
+    "Produits de boulangerie"
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,21 +94,46 @@ const ShoppingListDetail = () => {
     }, {});
   };
 
-  // Obtenir le libellé d'une catégorie
+  // Obtenir le libellé d'une catégorie - Modifié pour utiliser les nouvelles catégories
   const getCategoryLabel = (category) => {
-    const categories = {
-      fruits: 'Fruits',
-      vegetables: 'Légumes',
-      dairy: 'Produits laitiers',
-      meat: 'Viandes',
-      seafood: 'Poissons et fruits de mer',
-      bakery: 'Boulangerie',
-      pantry: 'Garde-manger',
-      freezer: 'Surgelés',
-      spices: 'Épices et condiments',
-      other: 'Autres'
+    const categoriesAlimentsDatabase = [
+      "Fruits",
+      "Légumes",
+      "Viandes",
+      "Poissons et fruits de mer",
+      "Produits laitiers",
+      "Céréales et féculents",
+      "Légumineuses",
+      "Noix et graines",
+      "Huiles et matières grasses",
+      "Épices et herbes",
+      "Sucres et édulcorants",
+      "Boissons",
+      "Produits transformés",
+      "Snacks et confiseries",
+      "Produits de boulangerie"
+    ];
+    // Mapping des clés de catégories de la base de données vers nos nouvelles catégories
+    const categoryMapping = {
+      "Fruits": "Fruits",
+      "Légumes": "Légumes",
+      "Viandes": "Viandes",
+      "Poissons et fruits de mer": "Poissons et fruits de mer",
+      "Produits laitiers": "Produits laitiers",
+      "Céréales et féculents": "Céréales et féculents",
+      "Légumineuses": "Légumineuses",
+      "Noix et graines": "Noix et graines",
+      "Huiles et matières grasses": "Huiles et matières grasses",
+      "Épices et herbes": "Épices et herbes",
+      "Sucres et édulcorants": "Sucres et édulcorants",
+      "Boissons": "Boissons",
+      "Produits transformés": "Produits transformés",
+      "Snacks et confiseries": "Snacks et confiseries",
+      "Produits de boulangerie": "Produits de boulangerie",
+      "Autres": "Autres"
     };
-    return categories[category] || 'Autres';
+    
+    return categoryMapping[category] || "Autres";
   };
 
   // Obtenir le libellé d'une unité
