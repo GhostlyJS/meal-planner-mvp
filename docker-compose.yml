@@ -1,0 +1,77 @@
+version: '3'
+services:
+  # Base de données MongoDB
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+  # API Gateway
+  gateway:
+    build: ./services/gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - AUTH_SERVICE_URL=http://auth-service:4000
+      - RECIPE_SERVICE_URL=http://recipe-service:4001
+      - AI_SERVICE_URL=http://ai-service:4002
+    depends_on:
+      - auth-service
+      - recipe-service
+      - ai-service
+
+  # Service d'authentification
+  auth-service:
+    build: ./services/auth-service
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/auth_db?authSource=admin
+      - JWT_SECRET=your_jwt_secret_key
+    depends_on:
+      - mongodb
+
+  # Service de recettes
+  recipe-service:
+    build: ./services/recipe-service
+    ports:
+      - "4001:4001"
+    environment:
+      - PORT=4001
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/recipe_db?authSource=admin
+      - JWT_SECRET=your_jwt_secret_key
+    depends_on:
+      - mongodb
+
+  # Service d'IA
+  ai-service:
+    build: ./services/ai-service
+    ports:
+      - "4002:4002"
+    environment:
+      - PORT=4002
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/ai_db?authSource=admin
+      - JWT_SECRET=your_jwt_secret_key
+      - OPENAI_API_KEY=your_openai_api_key
+    depends_on:
+      - mongodb
+
+  # Client React
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on:
+      - gateway
+
+volumes:
+  mongodb_data:
