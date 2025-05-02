@@ -8,6 +8,8 @@ const router = express.Router();
 // Validation de la recette
 const recipeValidation = (data) => {
   const schema = Joi.object({
+    _id: Joi.string(),
+    userId: Joi.string(),
     title: Joi.string().required(),
     description: Joi.string().allow(''),
     prepTime: Joi.number().min(0),
@@ -15,6 +17,7 @@ const recipeValidation = (data) => {
     servings: Joi.number().min(1).required(),
     ingredients: Joi.array().items(
       Joi.object({
+        _id: Joi.string(),
         name: Joi.string().required(),
         quantity: Joi.number().min(0).required(),
         unit: Joi.string().required()
@@ -22,7 +25,10 @@ const recipeValidation = (data) => {
     ).required(),
     instructions: Joi.array().items(Joi.string()).required(),
     category: Joi.string().valid('breakfast', 'lunch', 'dinner', 'snack', 'dessert', 'other'),
-    imageUrl: Joi.string().allow('')
+    imageUrl: Joi.string().allow(''),
+    createdAt: Joi.date(),
+    updatedAt: Joi.date(),
+    __v: Joi.number()
   });
   return schema.validate(data);
 };

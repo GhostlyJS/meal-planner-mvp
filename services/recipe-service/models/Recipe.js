@@ -66,7 +66,7 @@ const recipeSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now
-  }
+  },
 });
 
 // Mise à jour de la date de modification
